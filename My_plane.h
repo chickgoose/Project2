@@ -1,6 +1,8 @@
 #ifndef MY_PLANE_H
 #define MY_PLANE_H
 
+
+
 #include <stdio.h>
 #include <locale.h>
 #include <iostream>

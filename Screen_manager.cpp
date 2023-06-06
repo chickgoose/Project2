@@ -44,7 +44,44 @@ void Screen_manager::print_share(){
     check_frame = this->my_plane.check_frame_my_plane;
     while ((curr_frame-create_frame)/shot_frame - check_frame > 0){ //bullet create
         Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame);
+        
         this->my_plane.bullet.push_back(bullet);
+
+        if (type_event[check_frame] == 'n') // creating object
+        {
+            Enemy_1n enemy_1n = Enemy_1n(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_enemy.push_back(enemy_1n);
+        }
+        else if (type_event[check_frame] == 'r')
+        {
+            Enemy_2r enemy_2r = Enemy_2r(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_enemy.push_back(enemy_2r);
+        }
+        else if (type_event[check_frame] == 's')
+        {
+            Enemy_3s enemy_3s = Enemy_3s(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_enemy.push_back(enemy_3s);
+        }
+        else if (type_event[check_frame] == 'd')
+        {
+            Enemy_4d enemy_4d = Enemy_4d(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_enemy.push_back(enemy_4d);
+        }
+        else if (type_event[check_frame] == 'a')
+        {
+            Enemy_5a enemy_5a = Enemy_5a(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_enemy.push_back(enemy_5a);
+        }
+        else if (type_event[check_frame] == 'P')
+        {
+            Powerup_bullet powerup_bullet = Powerup_bullet(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_bullet_change.push_back(powerup_bullet);
+        }
+        else if (type_event[check_frame] == 'L')
+        {
+            Levelup_bullet levelup_bullet = Levelup_bullet(y_event[check_frame], x_event[check_frame], frame_event[check_frame], type_event[check_frame]);
+            vec_bullet_change.push_back(levelup_bullet);
+        }
 
         for(auto iter=this->my_plane.bullet.begin(); iter<this->my_plane.bullet.end(); ){
             if(iter->y<=0){
@@ -69,12 +106,23 @@ void Screen_manager::print_share(){
 //print when key didn't pressed
 void Screen_manager::print(){
     board[this->my_plane.y][this->my_plane.x]='M';
-
+    for (int i=0; i < vec_enemy.size(); i++) { // printing object
+        board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
+    }
+    for (int i=0; i < vec_bullet_change.size(); i++) {
+        board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
+    }
     print_share();
 }
 
 //print when key pressed
 void Screen_manager::print(int ch){ //ascii
+    for (int i=0; i < vec_enemy.size(); i++) { // printing object
+        board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
+    }
+    for (int i=0; i < vec_bullet_change.size(); i++) {
+        board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
+    }
     if(ch=='d'){ //right
         if(this->my_plane.y >=0 && this->my_plane.y <(height-1) && this->my_plane.x >0 && this->my_plane.x < (width-2)){
             board[this->my_plane.y][this->my_plane.x]=' ';

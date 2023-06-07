@@ -23,7 +23,6 @@ class Enemy{
         : y(y_value), x(x_value), create_frame_enemy(frame_value), type(type_value) {};
         int y, x;
         char type;
-        int shot_frame_enemy=1;
         int create_frame_enemy; //initialize when it creates
         int check_frame_enemy=0;
         vector<Bullet> bullet;
@@ -37,6 +36,7 @@ class Enemy_1n: public Enemy
     Enemy_1n(int y_value, int x_value, int frame_value, char type_value) \
     : Enemy(y_value, x_value, frame_value, type_value) 
     {enemy_type = n;};
+    int hp = 10;
 };
 
 class Enemy_2r: public Enemy_1n
@@ -44,7 +44,9 @@ class Enemy_2r: public Enemy_1n
     public :
     Enemy_2r(int y_value, int x_value, int frame_value, char type_value) \
     : Enemy_1n(y_value, x_value, frame_value, type_value) 
-    {enemy_type = r;};
+    {enemy_type = r;
+    hp = 5;};
+    int cell_speed = 3;
 };
 
 class Enemy_3s: public Enemy_2r
@@ -52,7 +54,9 @@ class Enemy_3s: public Enemy_2r
     public :
     Enemy_3s(int y_value, int x_value, int frame_value, char type_value) \
     : Enemy_2r(y_value, x_value, frame_value, type_value) 
-    {enemy_type = s;};
+    {enemy_type = s;
+    cell_speed = 9;
+    hp = 4;};
 };
 
 class Enemy_4d: public Enemy_2r
@@ -60,7 +64,8 @@ class Enemy_4d: public Enemy_2r
     public :
     Enemy_4d(int y_value, int x_value, int frame_value, char type_value) \
     : Enemy_2r(y_value, x_value, frame_value, type_value) 
-    {enemy_type = d;};
+    {enemy_type = d;
+    hp = 5;};
 };
 
 class Enemy_5a: public Enemy_1n
@@ -68,5 +73,7 @@ class Enemy_5a: public Enemy_1n
     public :
     Enemy_5a(int y_value, int x_value, int frame_value, char type_value) \
     : Enemy_1n(y_value, x_value, frame_value, type_value)
-    {enemy_type = a;};
+    {enemy_type = a;
+    hp = 8;};
+    int buff_speed = 6;
 };

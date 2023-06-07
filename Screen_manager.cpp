@@ -107,10 +107,16 @@ void Screen_manager::print_share(){
 void Screen_manager::print(){
     board[this->my_plane.y][this->my_plane.x]='M';
     for (int i=0; i < vec_enemy.size(); i++) { // printing object
-        board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
+        if (board[this->vec_enemy[i].y][this->vec_enemy[i].x] != 'M') {
+            board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
+        }
+        //board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
     }
     for (int i=0; i < vec_bullet_change.size(); i++) {
-        board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
+        if (board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] != 'M') {
+            board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
+        }
+        //board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
     }
     print_share();
 }
@@ -118,10 +124,16 @@ void Screen_manager::print(){
 //print when key pressed
 void Screen_manager::print(int ch){ //ascii
     for (int i=0; i < vec_enemy.size(); i++) { // printing object
-        board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
+        if (board[this->vec_enemy[i].y][this->vec_enemy[i].x] != 'M') {
+            board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
+        }
+        //board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
     }
     for (int i=0; i < vec_bullet_change.size(); i++) {
-        board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
+        if (board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] != 'M') {
+            board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
+        }
+        //board[this->vec_bullet_change[i].y][this->vec_bullet_change[i].x] = vec_bullet_change[i].type;
     }
     if(ch=='d'){ //right
         if(this->my_plane.y >=0 && this->my_plane.y <(height-1) && this->my_plane.x >0 && this->my_plane.x < (width-2)){

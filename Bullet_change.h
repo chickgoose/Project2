@@ -25,6 +25,7 @@ class Bullet_change{
         char type;
         int create_frame_bullet_change; //initialize when it creates
         int check_frame_bullet_change=0;
+        enum bullet_type bullet_type;
 };
 #endif
 
@@ -32,14 +33,14 @@ class Powerup_bullet : public Bullet_change
 {
     public :
     Powerup_bullet(int y_value, int x_value, int frame_value, char type_value) \
-    : Bullet_change(y_value, x_value, frame_value, type_value), bullet_type(P) {};
-    enum bullet_type bullet_type;
+    : Bullet_change(y_value, x_value, frame_value, type_value) 
+    {bullet_type = P;};
 };
 
 class Levelup_bullet : public Bullet_change
 {
     public :
     Levelup_bullet(int y_value, int x_value, int frame_value, char type_value) \
-    : Bullet_change(y_value, x_value, frame_value, type_value), bullet_type(L) {};
-    enum bullet_type bullet_type;
+    : Bullet_change(y_value, x_value, frame_value, type_value) 
+    {bullet_type = L;};
 };

@@ -27,6 +27,7 @@ class Enemy{
         int create_frame_enemy; //initialize when it creates
         int check_frame_enemy=0;
         vector<Bullet> bullet;
+        enum enemy_type enemy_type;
 };
 #endif
 
@@ -34,38 +35,38 @@ class Enemy_1n: public Enemy
 {
     public :
     Enemy_1n(int y_value, int x_value, int frame_value, char type_value) \
-    : Enemy(y_value, x_value, frame_value, type_value), enemy_type(n) {};
-    enum enemy_type enemy_type;
+    : Enemy(y_value, x_value, frame_value, type_value) 
+    {enemy_type = n;};
 };
 
-class Enemy_2r: public Enemy
+class Enemy_2r: public Enemy_1n
 {
     public :
     Enemy_2r(int y_value, int x_value, int frame_value, char type_value) \
-    : Enemy(y_value, x_value, frame_value, type_value), enemy_type(r) {};
-    enum enemy_type enemy_type;
+    : Enemy_1n(y_value, x_value, frame_value, type_value) 
+    {enemy_type = r;};
 };
 
-class Enemy_3s: public Enemy
+class Enemy_3s: public Enemy_2r
 {
     public :
     Enemy_3s(int y_value, int x_value, int frame_value, char type_value) \
-    : Enemy(y_value, x_value, frame_value, type_value), enemy_type(s) {};
-    enum enemy_type enemy_type;
+    : Enemy_2r(y_value, x_value, frame_value, type_value) 
+    {enemy_type = s;};
 };
 
-class Enemy_4d: public Enemy
+class Enemy_4d: public Enemy_2r
 {
     public :
     Enemy_4d(int y_value, int x_value, int frame_value, char type_value) \
-    : Enemy(y_value, x_value, frame_value, type_value), enemy_type(d) {};
-    enum enemy_type enemy_type;
+    : Enemy_2r(y_value, x_value, frame_value, type_value) 
+    {enemy_type = d;};
 };
 
-class Enemy_5a: public Enemy
+class Enemy_5a: public Enemy_1n
 {
     public :
     Enemy_5a(int y_value, int x_value, int frame_value, char type_value) \
-    : Enemy(y_value, x_value, frame_value, type_value), enemy_type(a) {};
-    enum enemy_type enemy_type;
+    : Enemy_1n(y_value, x_value, frame_value, type_value)
+    {enemy_type = a;};
 };

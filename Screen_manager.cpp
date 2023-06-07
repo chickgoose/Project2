@@ -86,45 +86,23 @@ void Screen_manager::print_share(){
                 }
             }
         }
-        /*if (cor == true) {
-            if (type_event[idx] == 'n') // creating object
-            {
-                Enemy_1n enemy_1n = Enemy_1n(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_enemy.push_back(enemy_1n);
+
+        /*for(auto iter=vec_enemy.begin(); iter<vec_enemy.end(); ) {
+            if(iter->type == 'r') {
+                if ((curr_frame-iter->create_frame_enemy)/iter->cell_speed - iter->check_frame_enemy > 0) {
+                    if(iter->y>=31){
+                        board[iter->y][iter->x]=' ';
+                        this->vec_enemy.erase(iter);
+                    }
+                    else{
+                        board[iter->y][iter->x]=' ';
+                        iter->y -= 1;
+                        board[iter->y][iter->x]=iter->type;
+                        iter++;
+                    }
+                }
             }
-            else if (type_event[idx-1] == 'r')
-            {
-                Enemy_2r enemy_2r = Enemy_2r(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_enemy.push_back(enemy_2r);
-            }
-            else if (type_event[idx-1] == 's')
-            {
-                Enemy_3s enemy_3s = Enemy_3s(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_enemy.push_back(enemy_3s);
-            }
-            else if (type_event[idx-1] == 'd')
-            {
-                Enemy_4d enemy_4d = Enemy_4d(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_enemy.push_back(enemy_4d);
-            }
-            else if (type_event[idx-1] == 'a')
-            {
-                Enemy_5a enemy_5a = Enemy_5a(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_enemy.push_back(enemy_5a);
-            }
-            else if (type_event[idx-1] == 'P')
-            {
-                Powerup_bullet powerup_bullet = Powerup_bullet(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_bullet_change.push_back(powerup_bullet);
-            }
-            else if (type_event[idx-1] == 'L')
-            {
-                Levelup_bullet levelup_bullet = Levelup_bullet(y_event[idx], x_event[idx], frame_event[idx], type_event[idx]);
-                vec_bullet_change.push_back(levelup_bullet);
-            }
-            cor = false;
         }*/
-        
 
         for(auto iter=this->my_plane.bullet.begin(); iter<this->my_plane.bullet.end(); ){
             if(iter->y<=0){
@@ -142,8 +120,82 @@ void Screen_manager::print_share(){
         }
         this->my_plane.check_frame_my_plane+=1;
         check_frame++;
+        for (int i=0; i < vec_bullet_change.size(); i++) {
+            vec_bullet_change[i].check_frame_bullet_change++;
+        }
     }
     //Bullet part ends
+    /*for(auto iter=vec_enemy.begin(); iter<vec_enemy.end(); ) {
+        //
+        if(iter->type == 'r') {
+            cursorYX(1, 1); printf("%c", '1');
+            while ((curr_frame-iter->create_frame_enemy)/iter->cell_speed - iter->check_frame_enemy > 0) {
+                cursorYX(1, 2); printf("%c", '2');
+                if(iter->y>=31){
+                    board[iter->y][iter->x]=' ';
+                    this->vec_enemy.erase(iter);
+                }
+                else{
+                    board[iter->y][iter->x]=' ';
+                    iter->y -= 1;
+                    board[iter->y][iter->x]=iter->type;
+                    iter->check_frame_enemy++;
+                    iter++;
+                }
+            }
+        }
+    }*/
+    for(int i=0; i<vec_enemy.size(); i++) {
+        //
+        if(vec_enemy[i].type == 'r') {
+            //cursorYX(1, 1); printf("%c", '1');
+            while ((curr_frame-vec_enemy[i].create_frame_enemy)/vec_enemy[i].cell_speed - vec_enemy[i].check_frame_enemy > 0) {
+                //cursorYX(1, 2); printf("%c", '2');
+                if(vec_enemy[i].y>=29){
+                    board[vec_enemy[i].y][vec_enemy[i].x]=' ';
+                    this->vec_enemy.erase(vec_enemy.begin()+i);
+                }
+                else{
+                    board[vec_enemy[i].y][vec_enemy[i].x]=' ';
+                    vec_enemy[i].y += 1;
+                    board[vec_enemy[i].y][vec_enemy[i].x]=vec_enemy[i].type;
+                    vec_enemy[i].check_frame_enemy++;                
+                }
+            }
+        }
+        else if(vec_enemy[i].type == 's') {
+            //cursorYX(1, 1); printf("%c", '1');
+            while ((curr_frame-vec_enemy[i].create_frame_enemy)/vec_enemy[i].cell_speed - vec_enemy[i].check_frame_enemy > 0) {
+                //cursorYX(1, 2); printf("%c", '2');
+                if(vec_enemy[i].y>=29){
+                    board[vec_enemy[i].y][vec_enemy[i].x]=' ';
+                    this->vec_enemy.erase(vec_enemy.begin()+i);
+                }
+                else{
+                    board[vec_enemy[i].y][vec_enemy[i].x]=' ';
+                    vec_enemy[i].y += 1;
+                    board[vec_enemy[i].y][vec_enemy[i].x]=vec_enemy[i].type;
+                    vec_enemy[i].check_frame_enemy++;                
+                }
+            }
+        }
+        else if(vec_enemy[i].type == 'd') {
+            //cursorYX(1, 1); printf("%c", '1');
+            while ((curr_frame-vec_enemy[i].create_frame_enemy)/vec_enemy[i].cell_speed - vec_enemy[i].check_frame_enemy > 0) {
+                //cursorYX(1, 2); printf("%c", '2');
+                if(vec_enemy[i].y>=29){
+                    board[vec_enemy[i].y][vec_enemy[i].x]=' ';
+                    this->vec_enemy.erase(vec_enemy.begin()+i);
+                }
+                else{
+                    board[vec_enemy[i].y][vec_enemy[i].x]=' ';
+                    vec_enemy[i].y += 1;
+                    board[vec_enemy[i].y][vec_enemy[i].x]=vec_enemy[i].type;
+                    vec_enemy[i].check_frame_enemy++;                
+                }
+            }
+        }
+    }
 }
 
 //print when key didn't pressed

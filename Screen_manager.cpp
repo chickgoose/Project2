@@ -47,6 +47,7 @@ void Screen_manager::print_share(){
         Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame);
         if (vec_enemy.size() == 9) {
             cursorYX(1, 58); printf("%c", '9');
+            cursorYX(2, 58); printf("%c", ' ');
         }
         else if (vec_enemy.size() == 8) {
             cursorYX(1, 58); printf("%c", '8');
@@ -74,6 +75,17 @@ void Screen_manager::print_share(){
         }
         else if (vec_enemy.size() == 0) {
             cursorYX(1, 58); printf("%c", '0');
+        }
+        check = 0;
+        for (int i=0; i<30; i++) {
+            for (int j=0; j<60; j++) {
+                if (vec_enemy_board[i][j].size() > 0) {
+                    check = 1;
+                }
+            }
+        }
+        if (check == 0) {
+            cursorYX(2, 58); printf("%c", '0');
         }
         this->my_plane.bullet.push_back(bullet);
         vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(bullet);

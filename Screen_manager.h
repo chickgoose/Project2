@@ -47,5 +47,6 @@ class Screen_manager{
         bool cor_vec_bullet_board;
         int erase_idx_vec_enemy_board;
         bool cor_vec_enemy_board;
+        int erase_idx_vec_enemy;
 };
 #endif

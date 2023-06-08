@@ -408,6 +408,10 @@ void Screen_manager::print_share(){
                     vec_enemy[i]->y += 1;
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
+                    Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, \
+                      vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
+                    this->vec_enemy_bullet.push_back(enemy_bullet);
+                    vec_enemy_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(enemy_bullet);
                     vec_enemy[i]->check_frame_enemy++;
                     if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size() > 0) {
                         for (int j=0; j < vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
@@ -473,6 +477,10 @@ void Screen_manager::print_share(){
                     vec_enemy[i]->y += 1;
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
+                    Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, \
+                      vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
+                    this->vec_enemy_bullet.push_back(enemy_bullet);
+                    vec_enemy_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(enemy_bullet);
                     vec_enemy[i]->check_frame_enemy++;
                     if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size() > 0) {
                         for (int j=0; j < vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {

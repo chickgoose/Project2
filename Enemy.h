@@ -28,6 +28,8 @@ class Enemy{
         enum enemy_type enemy_type;
         int hp;
         int cell_speed;
+        int bullet_damage = 1;
+        bool buffed = false;
 };
 #endif
 
@@ -83,11 +85,12 @@ class Enemy_5a: public Enemy_1n
 class Enemy_bullet
 {
     public:
-        Enemy_bullet(int y_value, int x_value, int frame_value, Enemy enemy) \
-        : y(y_value), x(x_value), create_frame_enemy_bullet(frame_value), attacker(enemy){};
-        int damage=1;
+        Enemy_bullet(int y_value, int x_value, int frame_value, int frame_value_enemy, int damage_value, char enemy_b_type) \
+        : y(y_value), x(x_value), create_frame_enemy_bullet(frame_value), frame_enemy(frame_value_enemy), damage(damage_value), enemy_b_type(enemy_b_type) {};
+        int damage;
         int y, x;
         int create_frame_enemy_bullet; //initialize when it creates
         int check_frame_enemy_bullet;
-        Enemy attacker;
+        int frame_enemy; // 식별자
+        char enemy_b_type;
 };

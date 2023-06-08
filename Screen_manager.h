@@ -35,10 +35,7 @@ class Screen_manager{
         void render();
         char board[30][60]={'a'};
         My_plane my_plane = My_plane(height-2, 1, 0);
-        vector<Enemy> vec_enemy {};
-        vector<Bullet_change> vec_bullet_change {};
-
-        bool cor = false;
-        int idx = 0;
+        vector<Enemy*> vec_enemy {};
+        vector<Bullet_change*> vec_bullet_change {};
 };
 #endif

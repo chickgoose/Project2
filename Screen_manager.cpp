@@ -47,7 +47,8 @@ void Screen_manager::print_share(){
         Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame);
 
         this->my_plane.bullet.push_back(bullet);
-        vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x, check_frame].push_back(bullet);
+        vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(bullet);
+        
 
         for (int i=0; i<(sizeof(frame_event)); i++) {
             if (curr_frame == frame_event[i]) {
@@ -320,12 +321,12 @@ void Screen_manager::print_share(){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
                     vec_enemy[i]->check_frame_enemy++;
-                    if (vec_enemy_board[15][50].size()==1) {
+                    /*if (vec_enemy_board[15][50].size()==1) {
                         cursorYX(1, 2); printf("%c", '2');
                     }
                     else {
                         cursorYX(1, 2); printf("%c", '1');
-                    }
+                    }*/
                 }
             }
         }

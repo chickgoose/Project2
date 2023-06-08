@@ -121,17 +121,16 @@ void Screen_manager::print_share(){
             else{
                 if(iter!=(this->my_plane.bullet.end()-1) && curr_frame!=1){
                     board[iter->y][iter->x]=' ';
-                    int erase_idx;
-                    bool cor = false;
+                    this->cor_vec_bullet_board = false;
                     for (int i=0; i<vec_bullet_board[iter->y][iter->x].size(); i++) {
                         if (vec_bullet_board[iter->y][iter->x][i].create_frame_bullet == iter->create_frame_bullet) {
-                            erase_idx = i;
+                            this->erase_idx_vec_bullet_board = i;
                             //cursorYX(1, 2); printf("%c", '2');
-                            cor = true;
+                            this->cor_vec_bullet_board = true;
                         }
                     }
-                    if (cor == true) {
-                        vec_bullet_board[iter->y][iter->x].erase(vec_bullet_board[iter->y][iter->x].begin() + erase_idx);
+                    if (this->cor_vec_bullet_board == true) {
+                        vec_bullet_board[iter->y][iter->x].erase(vec_bullet_board[iter->y][iter->x].begin() + this->erase_idx_vec_bullet_board);
                     }
                 }
                 iter->y -= shot_frame;

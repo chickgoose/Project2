@@ -42,5 +42,8 @@ class Screen_manager{
         My_plane my_plane = My_plane(height-2, 1, 0);
         vector<Enemy*> vec_enemy {};
         vector<Bullet_change*> vec_bullet_change {};
+
+        int erase_idx_vec_bullet_board;
+        bool cor_vec_bullet_board;
 };
 #endif

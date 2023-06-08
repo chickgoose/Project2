@@ -11,6 +11,7 @@
 #include <conio.h>
 #include <chrono>
 #include <vector>
+#include "Enemy.h"
 
 class Bullet{
     public:
@@ -21,5 +22,17 @@ class Bullet{
         int create_frame_bullet; //initialize when it creates
         int check_frame_bullet;
         int level=1;
+        int enemy_idx;
+        bool crash;
+        Enemy* target;
+        void attack(vector<Enemy*> vec_attacked_enemy) {
+            for (int i=0; i<vec_attacked_enemy.size(); i++) {
+                if (y == vec_attacked_enemy[i]->y && x == vec_attacked_enemy[i]->x) {
+                    target = vec_attacked_enemy[i];
+                    crash = true;
+                    enemy_idx = i;
+                }
+            }
+        }
 };
 #endif

@@ -113,8 +113,18 @@ void Screen_manager::print_share(){
                 if(iter!=(this->my_plane.bullet.end()-1) && curr_frame!=1){
                     board[iter->y][iter->x]=' ';
                 }
+                iter->crash = false;
                 iter->y -= shot_frame;
                 board[iter->y][iter->x]='\'';
+                iter->attack(this->vec_enemy);
+                if (iter->crash == true) {
+                    iter->target->hp -= iter->level;
+                    if (iter->target->hp <= 0) {
+                        delete iter->target;
+                        delete vec_enemy[iter->enemy_idx];
+                        this->vec_enemy.erase(vec_enemy.begin() + iter->enemy_idx);
+                    }
+                }
                 iter++;
             }
         }

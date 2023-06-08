@@ -83,11 +83,11 @@ class Enemy_5a: public Enemy_1n
 class Enemy_bullet
 {
     public:
-        Enemy_bullet(int y_value, int x_value, int frame_value) \
-        : y(y_value), x(x_value), create_frame_enemy_bullet(frame_value) {};
+        Enemy_bullet(int y_value, int x_value, int frame_value, Enemy enemy) \
+        : y(y_value), x(x_value), create_frame_enemy_bullet(frame_value), attacker(enemy){};
         int damage=1;
         int y, x;
         int create_frame_enemy_bullet; //initialize when it creates
         int check_frame_enemy_bullet;
-        int level=1;
+        Enemy attacker;
 };

@@ -12,14 +12,33 @@
 #include <chrono>
 #include <vector>
 
+enum Direction {middle, left, right};
+
 class Bullet{
     public:
-        Bullet(int y_value, int x_value, int frame_value) \
-        : y(y_value), x(x_value), create_frame_bullet(frame_value) {};
-        int damage=1;
+        Bullet(int y_value, int x_value, int frame_value, int level_value) \
+        : y(y_value), x(x_value), create_frame_bullet(frame_value), level(level_value) {direction = middle;};
         int y, x;
         int create_frame_bullet; //initialize when it creates
         int check_frame_bullet;
-        int level=1;
+        int level;
+        char Level_var[4] = {' ', '\'', '^', '!'};
+        char bullet_shape = Level_var[level];
+        enum Direction direction;
+};
+
+class Bullet_left : public Bullet
+{
+    public : 
+        Bullet_left(int y_value, int x_value, int frame_value, int level_value) \
+        : Bullet(y_value, x_value, frame_value, level_value) {direction = left;};
+};
+
+
+class Bullet_right : public Bullet
+{
+    public : 
+        Bullet_right(int y_value, int x_value, int frame_value, int level_value) \
+        : Bullet(y_value, x_value, frame_value, level_value) {direction = right;};
 };
 #endif

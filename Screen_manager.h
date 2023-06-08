@@ -40,7 +40,6 @@ class Screen_manager{
         vector<Enemy*> vec_enemy_board[30][60] = {};
         vector<Enemy_bullet> vec_enemy_bullet_board[30][60] = {};
         vector<Bullet> vec_bullet_board[30][60] = {};
-        vector<Bullet_change*> vec_bullet_change_board[30][60] = {};
         My_plane my_plane = My_plane(height-2, 1, 0);
         vector<Enemy*> vec_enemy {};
         vector<Bullet_change*> vec_bullet_change {};
@@ -55,5 +54,6 @@ class Screen_manager{
         map<char, int> score_map;
         int score = 0;
         int initial_map = 0;
+        vector<Enemy_bullet> vec_enemy_bullet {};
 };
 #endif

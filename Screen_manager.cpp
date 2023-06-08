@@ -116,6 +116,17 @@ void Screen_manager::print_share(){
         for(auto iter=this->my_plane.bullet.begin(); iter<this->my_plane.bullet.end(); ){
             if(iter->y<=0){
                 board[iter->y][iter->x]=' ';
+                this->cor_vec_bullet_board = false;
+                for (int i=0; i<vec_bullet_board[iter->y][iter->x].size(); i++) {
+                    if (vec_bullet_board[iter->y][iter->x][i].create_frame_bullet == iter->create_frame_bullet) {
+                        this->erase_idx_vec_bullet_board = i;
+                        //cursorYX(1, 2); printf("%c", '2');
+                        this->cor_vec_bullet_board = true;
+                    }
+                }
+                if (this->cor_vec_bullet_board == true) {
+                    vec_bullet_board[iter->y][iter->x].erase(vec_bullet_board[iter->y][iter->x].begin() + this->erase_idx_vec_bullet_board);
+                }
                 this->my_plane.bullet.erase(iter);
             }
             else{
@@ -144,10 +155,10 @@ void Screen_manager::print_share(){
         for (int i=0; i < vec_bullet_change.size(); i++) {
             vec_bullet_change[i]->check_frame_bullet_change++;
         }
-        /*if (vec_bullet_board[25][1].size()==1) {
+        /*if (vec_bullet_board[0][1].size()==1) {
             cursorYX(1, 2); printf("%c", '2');
         }
-        else if (vec_bullet_board[25][1].size()==2) {
+        else if (vec_bullet_board[0][1].size()==2) {
             cursorYX(1, 2); printf("%c", '3');
         }
         else {

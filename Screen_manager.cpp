@@ -45,7 +45,36 @@ void Screen_manager::print_share(){
     check_frame = this->my_plane.check_frame_my_plane;
     while ((curr_frame-create_frame)/shot_frame - check_frame > 0){ //bullet create
         Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame);
-
+        if (vec_enemy.size() == 9) {
+            cursorYX(1, 58); printf("%c", '9');
+        }
+        else if (vec_enemy.size() == 8) {
+            cursorYX(1, 58); printf("%c", '8');
+        }
+        else if (vec_enemy.size() == 7) {
+            cursorYX(1, 58); printf("%c", '7');
+        }
+        else if (vec_enemy.size() == 6) {
+            cursorYX(1, 58); printf("%c", '6');
+        }
+        else if (vec_enemy.size() == 5) {
+            cursorYX(1, 58); printf("%c", '5');
+        }
+        else if (vec_enemy.size() == 4) {
+            cursorYX(1, 58); printf("%c", '4');
+        }
+        else if (vec_enemy.size() == 3) {
+            cursorYX(1, 58); printf("%c", '3');
+        }
+        else if (vec_enemy.size() == 2) {
+            cursorYX(1, 58); printf("%c", '2');
+        }
+        else if (vec_enemy.size() == 1) {
+            cursorYX(1, 58); printf("%c", '1');
+        }
+        else if (vec_enemy.size() == 0) {
+            cursorYX(1, 58); printf("%c", '0');
+        }
         this->my_plane.bullet.push_back(bullet);
         vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(bullet);
         if (vec_enemy_board[bullet.y][bullet.x].size()>0) {
@@ -56,10 +85,12 @@ void Screen_manager::print_share(){
                     if (vec_enemy[j]->create_frame_enemy == vec_enemy_board[bullet.y][bullet.x][i]->create_frame_enemy) {
                         delete vec_enemy[j];
                         vec_enemy.erase(vec_enemy.begin() + j);
+                        vec_enemy_board[bullet.y][bullet.x].erase(vec_enemy_board[bullet.y][bullet.x].begin() + i);
+                        return;
                     }
                 //delete vec_enemy_board[bullet.y][bullet.x][i];
-                vec_enemy_board[bullet.y][bullet.x].erase(vec_enemy_board[bullet.y][bullet.x].begin() + i);
-                return;
+                //vec_enemy_board[bullet.y][bullet.x].erase(vec_enemy_board[bullet.y][bullet.x].begin() + i);
+                //return;
                 }
             }
         }
@@ -171,10 +202,12 @@ void Screen_manager::print_share(){
                                 if (vec_enemy[j]->create_frame_enemy == vec_enemy_board[iter->y][iter->x][i]->create_frame_enemy) {
                                     delete vec_enemy[j];
                                     vec_enemy.erase(vec_enemy.begin() + j);
+                                    vec_enemy_board[iter->y][iter->x].erase(vec_enemy_board[iter->y][iter->x].begin() + i);
+                                    return;
                                 }
                             //delete vec_enemy_board[bullet.y][bullet.x][i];
-                            vec_enemy_board[iter->y][iter->x].erase(vec_enemy_board[iter->y][iter->x].begin() + i);
-                            return;
+                            //vec_enemy_board[iter->y][iter->x].erase(vec_enemy_board[iter->y][iter->x].begin() + i);
+                            //return;
                             }
                         }
                     }

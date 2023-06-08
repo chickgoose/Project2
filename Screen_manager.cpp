@@ -48,7 +48,18 @@ void Screen_manager::print_share(){
 
         this->my_plane.bullet.push_back(bullet);
         vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(bullet);
-        
+        for (int i=0; i<vec_enemy_board[bullet.y][bullet.x].size(); i++) { // enemy hp redusing
+            vec_enemy_board[bullet.y][bullet.x][i]->hp-=bullet.level;
+            if (vec_enemy_board[bullet.y][bullet.x][i]->hp <= 0) {
+                for (int j=0; j < vec_enemy.size(); j++) {
+                    if (vec_enemy[j]->create_frame_enemy == vec_enemy_board[bullet.y][bullet.x][i]->create_frame_enemy) {
+                        vec_enemy.erase(vec_enemy.begin() + j);
+                    }
+                delete vec_enemy_board[bullet.y][bullet.x][i];
+                vec_enemy_board[bullet.y][bullet.x].erase(vec_enemy_board[bullet.y][bullet.x].begin() + i);
+                }
+            }
+        }
 
         for (int i=0; i<(sizeof(frame_event)); i++) {
             if (curr_frame == frame_event[i]) {
@@ -148,6 +159,20 @@ void Screen_manager::print_share(){
                 iter->y -= shot_frame;
                 board[iter->y][iter->x]='\'';
                 vec_bullet_board[iter->y][iter->x].push_back(*iter);
+                for (int i=0; i<vec_enemy_board[iter->y][iter->x].size(); i++) {
+                    vec_enemy_board[iter->y][iter->x][i]->hp-=iter->level;
+                    if (vec_enemy_board[iter->y][iter->x][i]->hp <= 0) {
+                        cursorYX(1, 2); printf("%c", '2');
+                        for (int j=0; j < vec_enemy.size(); j++) {
+                            if (vec_enemy[j]->create_frame_enemy == vec_enemy_board[iter->y][iter->x][i]->create_frame_enemy) {
+                                delete vec_enemy[j];
+                                vec_enemy.erase(vec_enemy.begin() + j);
+                            }
+                        delete vec_enemy_board[iter->y][iter->x][i];
+                        vec_enemy_board[iter->y][iter->x].erase(vec_enemy_board[iter->y][iter->x].begin() + i);
+                        }
+                    }
+                }
                 iter++;
             }
         }
@@ -156,10 +181,10 @@ void Screen_manager::print_share(){
         for (int i=0; i < vec_bullet_change.size(); i++) {
             vec_bullet_change[i]->check_frame_bullet_change++;
         }
-        /*if (vec_bullet_board[0][1].size()==1) {
+        /*if (vec_bullet_board[1][28].size()==0) {
             cursorYX(1, 2); printf("%c", '2');
         }
-        else if (vec_bullet_board[0][1].size()==2) {
+        else if (vec_bullet_board[1][28].size()==2) {
             cursorYX(1, 2); printf("%c", '3');
         }
         else {

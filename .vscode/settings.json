@@ -1,6 +1,8 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "files.associations": {
-        "new": "cpp"
+        "new": "cpp",
+        "chrono": "cpp",
+        "ostream": "cpp"
     }
 }

@@ -13,6 +13,8 @@
 
 using namespace std;
 
+void end_game(Screen_manager manager);
+
 //main function
 int main(int argc, char *argv[])
 {   
@@ -83,8 +85,18 @@ int main(int argc, char *argv[])
         if(manager.curr_frame-prev_frame>0){
             manager.render();
         }
+        if (manager.end == 1) {
+            break;
+        }
     }
     system("cls");
+    end_game(manager);
     std::cout<<"Start game~!"<<endl;
     return 0;
+}
+
+void end_game(Screen_manager manager) {
+    std::cout << "Your score is " << manager.score << " (n : " << manager.score_map['n'] << " , r : " << 
+    manager.score_map['r'] << " , s : " << manager.score_map['s'] << " , d : " << manager.score_map['d'] << 
+    " , a : " << manager.score_map['a'] << ")"<<endl;
 }

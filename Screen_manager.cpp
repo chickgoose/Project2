@@ -194,15 +194,44 @@ void Screen_manager::print_share(){
                 //cursorYX(1, 2); printf("%c", '2');
                 if(vec_enemy[i]->y>=29){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
+                    this->cor_vec_enemy_board = false;
+                    for (int i=0; i<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); i++) {
+                        if (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x][i]->create_frame_enemy == vec_enemy[i]->create_frame_enemy) {
+                            this->erase_idx_vec_enemy_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_board = true;
+                        }
+                    }
+                    if (this->cor_vec_enemy_board == true) {
+                        vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
+                    }
                     delete vec_enemy[i];
                     vec_enemy.erase(vec_enemy.begin() + i);
                     return;
                 }
                 else{
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
+                    this->cor_vec_enemy_board = false;
+                    for (int i=0; i<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); i++) {
+                        if (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x][i]->create_frame_enemy == vec_enemy[i]->create_frame_enemy) {
+                            this->erase_idx_vec_enemy_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_board = true;
+                        }
+                    }
+                    if (this->cor_vec_enemy_board == true) {
+                        vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
+                    }
                     vec_enemy[i]->y += 1;
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
-                    vec_enemy[i]->check_frame_enemy++;                
+                    vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
+                    vec_enemy[i]->check_frame_enemy++;
+                    /*if (vec_enemy_board[5][5].size()==1) {
+                        cursorYX(1, 2); printf("%c", '2');
+                    }
+                    else {
+                        cursorYX(1, 2); printf("%c", '1');
+                    }*/
                 }
             }
         }
@@ -212,15 +241,44 @@ void Screen_manager::print_share(){
                 //cursorYX(1, 2); printf("%c", '2');
                 if(vec_enemy[i]->y>=29){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
+                    this->cor_vec_enemy_board = false;
+                    for (int i=0; i<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); i++) {
+                        if (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x][i]->create_frame_enemy == vec_enemy[i]->create_frame_enemy) {
+                            this->erase_idx_vec_enemy_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_board = true;
+                        }
+                    }
+                    if (this->cor_vec_enemy_board == true) {
+                        vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
+                    }
                     delete vec_enemy[i];
                     vec_enemy.erase(vec_enemy.begin() + i);
                     return;
                 }
                 else{
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
+                    this->cor_vec_enemy_board = false;
+                    for (int i=0; i<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); i++) {
+                        if (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x][i]->create_frame_enemy == vec_enemy[i]->create_frame_enemy) {
+                            this->erase_idx_vec_enemy_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_board = true;
+                        }
+                    }
+                    if (this->cor_vec_enemy_board == true) {
+                        vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
+                    }
                     vec_enemy[i]->y += 1;
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
-                    vec_enemy[i]->check_frame_enemy++;                
+                    vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
+                    vec_enemy[i]->check_frame_enemy++;         
+                    /*if (vec_enemy_board[7][40].size()==1) {
+                        cursorYX(1, 2); printf("%c", '2');
+                    }
+                    else {
+                        cursorYX(1, 2); printf("%c", '1');
+                    } */     
                 }
             }
         }
@@ -230,20 +288,44 @@ void Screen_manager::print_share(){
                 //cursorYX(1, 2); printf("%c", '2');
                 if(vec_enemy[i]->y>=29){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
-                    //cursorYX(1, 1); printf("%c", '1');
+                    this->cor_vec_enemy_board = false;
+                    for (int i=0; i<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); i++) {
+                        if (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x][i]->create_frame_enemy == vec_enemy[i]->create_frame_enemy) {
+                            this->erase_idx_vec_enemy_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_board = true;
+                        }
+                    }
+                    if (this->cor_vec_enemy_board == true) {
+                        vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
+                    }
                     delete vec_enemy[i];
-                    //cursorYX(1, 2); printf("%c", '2');
                     vec_enemy.erase(vec_enemy.begin() + i);
-                    /*for (int j=0; j<vec_enemy.size(); j++) {
-                        cursorYX(1, j+3); printf("%c", vec_enemy[j]->type);
-                    }*/
                     return;
                 }
                 else{
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
+                    this->cor_vec_enemy_board = false;
+                    for (int i=0; i<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); i++) {
+                        if (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x][i]->create_frame_enemy == vec_enemy[i]->create_frame_enemy) {
+                            this->erase_idx_vec_enemy_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_board = true;
+                        }
+                    }
+                    if (this->cor_vec_enemy_board == true) {
+                        vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
+                    }
                     vec_enemy[i]->y += 1;
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
-                    vec_enemy[i]->check_frame_enemy++;                
+                    vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
+                    vec_enemy[i]->check_frame_enemy++;
+                    if (vec_enemy_board[15][50].size()==1) {
+                        cursorYX(1, 2); printf("%c", '2');
+                    }
+                    else {
+                        cursorYX(1, 2); printf("%c", '1');
+                    }
                 }
             }
         }

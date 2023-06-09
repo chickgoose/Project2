@@ -52,6 +52,7 @@ void Screen_manager::print_share(){
     shot_frame = this->my_plane.shot_frame_my_plane;
     create_frame = this->my_plane.create_frame_my_plane;
     check_frame = this->my_plane.check_frame_my_plane;
+    
     while ((curr_frame-create_frame)/shot_frame - check_frame > 0){ //bullet create
 
         Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame, this->my_plane.bullet_level);
@@ -264,11 +265,60 @@ void Screen_manager::print_share(){
                 iter++;
             }
         }
+
+        for (auto iter = this->vec_enemy_bullet.begin(); iter<this->vec_enemy_bullet.end();) {
+            if (iter->enemy_b_type == 's') {
+                if (iter->y>=29) {
+                    board[iter->y][iter->x]=' ';
+                    this->cor_vec_enemy_bullet_board = false;
+                    for (int i=0; i<vec_enemy_bullet_board[iter->y][iter->x].size(); i++) {
+                        if ((vec_enemy_bullet_board[iter->y][iter->x][i].create_frame_enemy_bullet == iter->create_frame_enemy_bullet) \
+                        && (vec_enemy_bullet_board[iter->y][iter->x][i].frame_enemy == iter->frame_enemy)) {
+                            this->erase_idx_vec_enemy_bullet_board = i;
+                            //cursorYX(1, 2); printf("%c", '2');
+                            this->cor_vec_enemy_bullet_board = true;
+                        }    
+                    }
+                    if (this->cor_vec_bullet_board == true) {
+                        vec_enemy_bullet_board[iter->y][iter->x].erase(vec_enemy_bullet_board[iter->y][iter->x].begin() + this->erase_idx_vec_enemy_bullet_board);
+                    }
+                    this->vec_enemy_bullet.erase(iter);
+                }
+                else {
+                    if(iter!=(this->vec_enemy_bullet.end()-1) && curr_frame!=1){
+                        board[iter->y][iter->x]=' ';
+                        this->cor_vec_enemy_bullet_board = false;
+                        for (int i=0; i<vec_enemy_bullet_board[iter->y][iter->x].size(); i++) {
+                            if ((vec_enemy_bullet_board[iter->y][iter->x][i].create_frame_enemy_bullet == iter->create_frame_enemy_bullet) \
+                            && (vec_enemy_bullet_board[iter->y][iter->x][i].frame_enemy == iter->frame_enemy)) {
+                                this->erase_idx_vec_enemy_bullet_board = i;
+                                //cursorYX(1, 2); printf("%c", '2');
+                                this->cor_vec_enemy_bullet_board = true;
+                            }    
+                        }
+                        if (this->cor_vec_bullet_board == true) {
+                            vec_enemy_bullet_board[iter->y][iter->x].erase(vec_enemy_bullet_board[iter->y][iter->x].begin() + this->erase_idx_vec_enemy_bullet_board);
+                        }
+                    }
+                    iter->y += shot_frame;
+                    board[iter->y][iter->x]='*';
+                    vec_enemy_bullet_board[iter->y][iter->x].push_back(*iter);
+                    if ((my_plane.y == iter->y) && (my_plane.x == iter->x)) {
+                        my_plane.hp-=iter->damage;
+                    }
+                }
+
+            }     
+            iter++;       
+        }
+
         this->my_plane.check_frame_my_plane+=1;
         check_frame++;
         for (int i=0; i < vec_bullet_change.size(); i++) {
             vec_bullet_change[i]->check_frame_bullet_change++;
         }
+
+
         /*if (vec_bullet_board[1][28].size()==0) {
             cursorYX(1, 2); printf("%c", '2');
         }
@@ -408,7 +458,7 @@ void Screen_manager::print_share(){
                     vec_enemy[i]->y += 1;
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
-                    Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, \
+                    Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, // vec_enemy[i]->check_frame_enemy : 식별자
                       vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
                     this->vec_enemy_bullet.push_back(enemy_bullet);
                     vec_enemy_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(enemy_bullet);
@@ -510,6 +560,9 @@ void Screen_manager::print_share(){
             }
         }
     }
+
+
+
     score = (score_map['n']*1) + (score_map['r']*2) + (score_map['s']*3) + (score_map['d']*4) + (score_map['a']*5);
     if ((my_plane.hp <= 0 || vec_enemy.size() <= 0) && curr_frame >= 3) {
         end = 1;

@@ -45,7 +45,9 @@ class Screen_manager{
         vector<Bullet_change*> vec_bullet_change {};
 
         int erase_idx_vec_bullet_board;
+        int erase_idx_vec_enemy_bullet_board;
         bool cor_vec_bullet_board;
+        bool cor_vec_enemy_bullet_board;
         int erase_idx_vec_enemy_board;
         bool cor_vec_enemy_board;
         int erase_idx_vec_enemy;

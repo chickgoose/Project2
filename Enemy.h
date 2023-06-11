@@ -30,6 +30,7 @@ class Enemy{
         int cell_speed;
         int bullet_damage = 1;
         bool buffed = false;
+        int buff_speed;
 };
 #endif
 
@@ -78,8 +79,8 @@ class Enemy_5a: public Enemy_1n
     Enemy_5a(int y_value, int x_value, int frame_value, char type_value) \
     : Enemy_1n(y_value, x_value, frame_value, type_value)
     {enemy_type = a;
-    hp = 8;};
-    int buff_speed = 6;
+    hp = 8;
+    buff_speed = 6;};
 };
 
 class Enemy_bullet

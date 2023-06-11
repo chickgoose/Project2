@@ -37,6 +37,17 @@ void Screen_manager::print_share(){
     for(int i=0; i<width; i++){board[height-1][i]='w';}
     for(int j=0; j<height; j++){board[j][0]='w'; board[j][width-1]='w';}
 
+    board[1][51] = 'E';
+    board[1][52] = 'n';
+    board[1][53] = 'e';
+    board[1][54] = 'm';
+    board[1][55] = 'y';
+    board[1][56] = ':';
+
+    board[3][54] = 'h';
+    board[3][55] = 'p';
+    board[3][56] = ':';
+
     int shot_frame, create_frame, check_frame;
 
     if (initial_map == 0) {
@@ -267,7 +278,7 @@ void Screen_manager::print_share(){
         }
 
         for (auto iter = this->vec_enemy_bullet.begin(); iter<this->vec_enemy_bullet.end();) {
-            if ((iter->enemy_b_type == 's' && iter->y>=29) || (iter->enemy_b_type == 'd' && (iter->y>=29 || iter->x>=60))) {
+            if ((iter->enemy_b_type == 's' && iter->y>=28) || (iter->enemy_b_type == 'd' && (iter->y>=28 || iter->x>=58))) {
                 board[iter->y][iter->x]=' ';
                 this->cor_vec_enemy_bullet_board = false;
                 for (int i=0; i<vec_enemy_bullet_board[iter->y][iter->x].size(); i++) {
@@ -365,7 +376,7 @@ void Screen_manager::print_share(){
             //cursorYX(1, 1); printf("%c", '1');
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->cell_speed - vec_enemy[i]->check_frame_enemy > 0) {
                 //cursorYX(1, 2); printf("%c", '2');
-                if(vec_enemy[i]->y>=29){
+                if(vec_enemy[i]->y>=28){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
                     this->cor_vec_enemy_board = false;
                     for (int j=0; j<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
@@ -434,7 +445,7 @@ void Screen_manager::print_share(){
             //cursorYX(1, 1); printf("%c", '1');
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->cell_speed - vec_enemy[i]->check_frame_enemy > 0) {
                 //cursorYX(1, 2); printf("%c", '2');
-                if(vec_enemy[i]->y>=29){
+                if(vec_enemy[i]->y>=28){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
                     this->cor_vec_enemy_board = false;
                     for (int j=0; j<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
@@ -503,7 +514,7 @@ void Screen_manager::print_share(){
             //cursorYX(1, 1); printf("%c", '1');
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->cell_speed - vec_enemy[i]->check_frame_enemy > 0) {
                 //cursorYX(1, 2); printf("%c", '2');
-                if(vec_enemy[i]->y>=29){
+                if(vec_enemy[i]->y>=28){
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=' ';
                     this->cor_vec_enemy_board = false;
                     for (int j=0; j<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
@@ -571,6 +582,11 @@ void Screen_manager::print_share(){
                         cursorYX(1, 2); printf("%c", '1');
                     }*/
                 }
+            }
+        }
+        else if (vec_enemy[i]->type == 'a') {
+            while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->buff_speed - vec_enemy[i]->check_frame_enemy > 0) {
+                vec_enemy[i]->check_frame_enemy++;
             }
         }
     }

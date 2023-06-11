@@ -10,8 +10,12 @@
 #include <Windows.h>
 #include <conio.h>
 #include <chrono>
+#include <variant>
 #include <vector>
+#include <map>
 #include "My_plane.h"
+#include "Enemy.h"
+#include "Bullet_change.h"
 
 using namespace std;
 
@@ -31,7 +35,27 @@ class Screen_manager{
         void print();
         void print_share();
         void render();
+
         char board[30][60]={'a'};
+        vector<Enemy*> vec_enemy_board[30][60] = {};
+        vector<Enemy_bullet> vec_enemy_bullet_board[30][60] = {};
+        vector<Bullet> vec_bullet_board[30][60] = {};
         My_plane my_plane = My_plane(height-2, 1, 0);
+        vector<Enemy*> vec_enemy {};
+        vector<Bullet_change*> vec_bullet_change {};
+
+        int erase_idx_vec_bullet_board;
+        int erase_idx_vec_enemy_bullet_board;
+        bool cor_vec_bullet_board;
+        bool cor_vec_enemy_bullet_board;
+        int erase_idx_vec_enemy_board;
+        bool cor_vec_enemy_board;
+        int erase_idx_vec_enemy;
+        int check;
+        int end = 0;
+        map<char, int> score_map;
+        int score = 0;
+        int initial_map = 0;
+        vector<Enemy_bullet> vec_enemy_bullet {};
 };
 #endif

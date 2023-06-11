@@ -97,6 +97,18 @@ void Screen_manager::print_share(){
         else if (my_plane.hp == 0) {
             cursorYX(3, 58); printf("%c", '0');
         }
+        else if (my_plane.hp == 9) {
+            cursorYX(3, 58); printf("%c", '9');
+        }
+        else if (my_plane.hp == 8) {
+            cursorYX(3, 58); printf("%c", '8');
+        }
+        else if (my_plane.hp == 7) {
+            cursorYX(3, 58); printf("%c", '7');
+        }
+        else if (my_plane.hp == 6) {
+            cursorYX(3, 58); printf("%c", '6');
+        }
 
         if (vec_enemy.size() == 9) {
             cursorYX(1, 58); printf("%c", '9');
@@ -408,6 +420,17 @@ void Screen_manager::print_share(){
                         vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
                     }
                     vec_enemy[i]->y += 1;
+                    for (int k=0; k<vec_enemy.size(); k++) {
+                        if (vec_enemy[k]->type == 'a') {
+                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == true){
+                                vec_enemy[i]->buffed = true;
+                            }
+                            else {
+                                vec_enemy[i]->buffed = false;
+                            }
+                        }
+                    }
+
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
 
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
@@ -477,6 +500,17 @@ void Screen_manager::print_share(){
                         vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin() + this->erase_idx_vec_enemy_board);
                     }
                     vec_enemy[i]->y += 1;
+                    for (int k=0; k<vec_enemy.size(); k++) {
+                        if (vec_enemy[k]->type == 'a') {
+                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == true){
+                                vec_enemy[i]->buffed = true;
+                            }
+                            else if (vec_enemy[i]->y > (vec_enemy[k]->y+3)){
+                                vec_enemy[i]->buffed = false;
+                            }
+                        }
+                    }
+
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
                     Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, // vec_enemy[i]->check_frame_enemy : 식별자
@@ -551,6 +585,17 @@ void Screen_manager::print_share(){
                         }
                     }
                     vec_enemy[i]->y += 1;
+                    for (int k=0; k<vec_enemy.size(); k++) {
+                        if (vec_enemy[k]->type == 'a') {
+                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == true){
+                                vec_enemy[i]->buffed = true;
+                            }
+                            else {
+                                vec_enemy[i]->buffed = false;
+                            }
+                        }
+                    }
+
                     board[vec_enemy[i]->y][vec_enemy[i]->x]=vec_enemy[i]->type;
                     vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(vec_enemy[i]);
                     Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, \
@@ -588,8 +633,7 @@ void Screen_manager::print_share(){
         else if (vec_enemy[i]->type == 'a') {
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->buff_speed - vec_enemy[i]->check_frame_enemy > 0) {
                 for (int j=0; j<vec_enemy.size(); j++) {
-                    if (vec_enemy[j]->create_frame_enemy!=vec_enemy[i]->create_frame_enemy) {
-                        vec_enemy[j]->buffed = vec_enemy[i]->in_buff_area(vec_enemy[j]);
+                    if ((vec_enemy[j]->create_frame_enemy!=vec_enemy[i]->create_frame_enemy) && (vec_enemy[i]->in_buff_area(vec_enemy[j]))) {
                         vec_enemy[j]->bullet_damage += 1;
                     }
                 }

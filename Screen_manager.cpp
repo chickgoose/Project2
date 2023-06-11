@@ -141,17 +141,6 @@ void Screen_manager::print_share(){
         else if (vec_enemy.size() == 0) {
             cursorYX(1, 58); printf("%c", '0');
         }
-        check = 0;
-        for (int i=0; i<25; i++) {
-            for (int j=0; j<60; j++) {
-                if (vec_enemy_board[i][j].size() > 0) {
-                    check = 1;
-                }
-            }
-        }
-        if (check == 0) {
-            cursorYX(2, 58); printf("%c", '0');
-        }
         /*if (vec_enemy_board[bullet.y][bullet.x].size()>0) {
         for (int i=0; i<vec_enemy_board[bullet.y][bullet.x].size(); i++) { // enemy hp redusing
             vec_enemy_board[bullet.y][bullet.x][i]->hp-=bullet.level;
@@ -385,6 +374,13 @@ void Screen_manager::print_share(){
     }*/
     for(int i=0; i<vec_enemy.size(); i++) {
         //
+        for (int k=0; k<vec_enemy.size(); k++) {
+            if (vec_enemy[k]->type == 'a') {
+                if ((vec_enemy[k]->in_buff_area(vec_enemy[i]) == true) && (vec_enemy[k]->create_frame_enemy != vec_enemy[i]->create_frame_enemy)){
+                    vec_enemy[i]->buffed = true;
+                }
+            }
+        }
         if(vec_enemy[i]->type == 'r') {
             //cursorYX(1, 1); printf("%c", '1');
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->cell_speed - vec_enemy[i]->check_frame_enemy > 0) {
@@ -422,10 +418,7 @@ void Screen_manager::print_share(){
                     vec_enemy[i]->y += 1;
                     for (int k=0; k<vec_enemy.size(); k++) {
                         if (vec_enemy[k]->type == 'a') {
-                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == true){
-                                vec_enemy[i]->buffed = true;
-                            }
-                            else {
+                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == false){
                                 vec_enemy[i]->buffed = false;
                             }
                         }
@@ -502,10 +495,7 @@ void Screen_manager::print_share(){
                     vec_enemy[i]->y += 1;
                     for (int k=0; k<vec_enemy.size(); k++) {
                         if (vec_enemy[k]->type == 'a') {
-                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == true){
-                                vec_enemy[i]->buffed = true;
-                            }
-                            else if (vec_enemy[i]->y > (vec_enemy[k]->y+3)){
+                            if (vec_enemy[i]->y > (vec_enemy[k]->y+3)){
                                 vec_enemy[i]->buffed = false;
                             }
                         }
@@ -587,10 +577,7 @@ void Screen_manager::print_share(){
                     vec_enemy[i]->y += 1;
                     for (int k=0; k<vec_enemy.size(); k++) {
                         if (vec_enemy[k]->type == 'a') {
-                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == true){
-                                vec_enemy[i]->buffed = true;
-                            }
-                            else {
+                            if (vec_enemy[k]->in_buff_area(vec_enemy[i]) == false){
                                 vec_enemy[i]->buffed = false;
                             }
                         }

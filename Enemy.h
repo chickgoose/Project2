@@ -31,6 +31,15 @@ class Enemy{
         int bullet_damage = 1;
         bool buffed = false;
         int buff_speed;
+        bool in_buff_area(Enemy* buffed_target) {
+            if ((buffed_target->x >= (this->x-3)) && (buffed_target->x <= (this->x+3))
+                && (buffed_target->y >= (this->y-3)) && (buffed_target->y <= (this->y+3))) {
+                return true;
+                }
+            else {
+                return false;
+            }
+        };
 };
 #endif
 

@@ -9,6 +9,7 @@
 #include <chrono>
 #include <variant>
 #include <vector>
+#include <cctype>
 #include "Screen_manager.h"
 
 using namespace std;
@@ -586,6 +587,12 @@ void Screen_manager::print_share(){
         }
         else if (vec_enemy[i]->type == 'a') {
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->buff_speed - vec_enemy[i]->check_frame_enemy > 0) {
+                for (int j=0; j<vec_enemy.size(); j++) {
+                    if (vec_enemy[j]->create_frame_enemy!=vec_enemy[i]->create_frame_enemy) {
+                        vec_enemy[j]->buffed = vec_enemy[i]->in_buff_area(vec_enemy[j]);
+                        vec_enemy[j]->bullet_damage += 1;
+                    }
+                }
                 vec_enemy[i]->check_frame_enemy++;
             }
         }
@@ -604,7 +611,13 @@ void Screen_manager::print(){
     board[this->my_plane.y][this->my_plane.x]='M';
     for (int i=0; i < vec_enemy.size(); i++) { // printing object
         if (board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] != 'M') {
-            board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] = vec_enemy[i]->type;
+            if (vec_enemy[i]->buffed == true) {
+                board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] = toupper(vec_enemy[i]->type);
+            }
+            else {
+                board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] = vec_enemy[i]->type;
+            }
+            
         }
         //board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
     }
@@ -621,7 +634,13 @@ void Screen_manager::print(){
 void Screen_manager::print(int ch){ //ascii
     for (int i=0; i < vec_enemy.size(); i++) { // printing object
         if (board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] != 'M') {
-            board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] = vec_enemy[i]->type;
+            if (vec_enemy[i]->buffed == true) {
+                board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] = toupper(vec_enemy[i]->type);
+            }
+            else {
+                board[this->vec_enemy[i]->y][this->vec_enemy[i]->x] = vec_enemy[i]->type;
+            }
+            
         }
         //board[this->vec_enemy[i].y][this->vec_enemy[i].x] = vec_enemy[i].type;
     }

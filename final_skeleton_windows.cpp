@@ -72,7 +72,10 @@ int main(int argc, char *argv[])
         auto microsec = std::chrono::duration_cast<std::chrono::microseconds>(end-start);
         int prev_frame = operation_time / frame_length;
         //operation_time += (end-start);
-        operation_time += microsec.count();
+        if (ch != 'p') {
+            operation_time += microsec.count();
+        }
+        //operation_time += microsec.count();
         manager.curr_frame = operation_time / frame_length;
         
         /*Objects operate every 0.1 seconds.

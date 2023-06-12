@@ -58,5 +58,6 @@ class Screen_manager{
         int initial_map = 0;
         vector<Enemy_bullet> vec_enemy_bullet {};
         int kill = 0;
+        bool charge_bullet_call = false;
 };
 #endif

@@ -45,9 +45,12 @@ void Screen_manager::print_share(){
     board[1][55] = 'y';
     board[1][56] = ':';
 
-    kill = score_map['n'] + score_map['r'] + score_map['s'] + score_map['d'] + score_map['a'];
+    //kill = score_map['n'] + score_map['r'] + score_map['s'] + score_map['d'] + score_map['a'];
     if (kill >= 7) {
         my_plane.charged = true;
+    }
+    else {
+        my_plane.charged = false;
     }
 
     if (my_plane.charged == true) {
@@ -58,6 +61,15 @@ void Screen_manager::print_share(){
         board[2][56] = 'g';
         board[2][57] = 'e';
         board[2][58] = 'd';
+    }
+    else {
+        board[2][52] = ' ';
+        board[2][53] = ' ';
+        board[2][54] = ' ';
+        board[2][55] = ' ';
+        board[2][56] = ' ';
+        board[2][57] = ' ';
+        board[2][58] = ' ';
     }
 
     board[3][54] = 'h';
@@ -81,10 +93,19 @@ void Screen_manager::print_share(){
     check_frame = this->my_plane.check_frame_my_plane;
     
     while ((curr_frame-create_frame)/shot_frame - check_frame > 0){ //bullet create
-
-        Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame, this->my_plane.bullet_level);
-        this->my_plane.bullet.push_back(bullet);
-        vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(bullet);
+        if (my_plane.charged == true && charge_bullet_call == true) {
+            Charged_bullet charged_bullet = Charged_bullet(this->my_plane.y, this->my_plane.x, check_frame, this->my_plane.bullet_level);
+            this->my_plane.bullet.push_back(charged_bullet);
+            vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(charged_bullet);
+            charge_bullet_call = false;
+            kill = 0;
+        }
+        else {
+            Bullet bullet = Bullet(this->my_plane.y-1+shot_frame, this->my_plane.x, check_frame, this->my_plane.bullet_level);
+            this->my_plane.bullet.push_back(bullet);
+            vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x].push_back(bullet);
+        }
+        
         
         if (this->my_plane.power_up == true) {
             Bullet_left bullet_left = Bullet_left(this->my_plane.y-1+shot_frame, this->my_plane.x-1, check_frame, this->my_plane.bullet_level);
@@ -237,6 +258,7 @@ void Screen_manager::print_share(){
                                 if (vec_enemy[j]->create_frame_enemy == vec_enemy_board[iter->y][iter->x][i]->create_frame_enemy) {
                                     score_map[vec_enemy[j]->type] ++;
                                     delete vec_enemy[j];
+                                    kill ++;
                                     vec_enemy.erase(vec_enemy.begin() + j);
                                     vec_enemy_board[iter->y][iter->x].erase(vec_enemy_board[iter->y][iter->x].begin() + i);
                                     break;
@@ -418,6 +440,7 @@ void Screen_manager::print_share(){
                             }
                             score_map[vec_enemy[i]->type] ++;
                             delete vec_enemy[i];
+                            kill++;
                             vec_enemy.erase(vec_enemy.begin() + i);
                             //vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin()
                             // + (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size() -1));
@@ -495,6 +518,7 @@ void Screen_manager::print_share(){
                             }
                             score_map[vec_enemy[i]->type] ++;
                             delete vec_enemy[i];
+                            kill++;
                             vec_enemy.erase(vec_enemy.begin() + i);
                             //vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin()
                             // + (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size() -1));
@@ -577,6 +601,7 @@ void Screen_manager::print_share(){
                             }
                             score_map[vec_enemy[i]->type] ++;
                             delete vec_enemy[i];
+                            kill++;
                             vec_enemy.erase(vec_enemy.begin() + i);
                             //vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].erase(vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].begin()
                             // + (vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size() -1));
@@ -702,6 +727,10 @@ void Screen_manager::print(int ch){ //ascii
             this->my_plane.y +=1;
             board[this->my_plane.y][this->my_plane.x]='M';
         }    
+    }
+    else if (ch == 'c') {
+        charge_bullet_call = true;
+
     }
     if (vec_enemy_board[my_plane.y][my_plane.x].size() > 0) {
         my_plane.hp --;

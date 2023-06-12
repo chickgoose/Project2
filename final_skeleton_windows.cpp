@@ -101,5 +101,5 @@ int main(int argc, char *argv[])
 void end_game(Screen_manager manager) {
     std::cout << "Your score is " << manager.score << " (n : " << manager.score_map['n'] << " , r : " << 
     manager.score_map['r'] << " , s : " << manager.score_map['s'] << " , d : " << manager.score_map['d'] << 
-    " , a : " << manager.score_map['a'] << ")"<<endl;
+    " , a : " << manager.score_map['a'] << " , b : " << manager.score_map['b'] << ")"<<endl;
 }

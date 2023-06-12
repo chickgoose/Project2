@@ -15,7 +15,7 @@
 
 using namespace std;
 
-enum bullet_type {P, L};
+enum bullet_type {P, L, H};
 
 class Bullet_change{
     public:
@@ -43,4 +43,12 @@ class Levelup_bullet : public Bullet_change
     Levelup_bullet(int y_value, int x_value, int frame_value, char type_value) \
     : Bullet_change(y_value, x_value, frame_value, type_value) 
     {bullet_type = L;};
+};
+
+class Hp_plus : public Bullet_change
+{
+    public :
+    Hp_plus(int y_value, int x_value, int frame_value, char type_value) \
+    : Bullet_change(y_value, x_value, frame_value, type_value) 
+    {bullet_type = H;};
 };

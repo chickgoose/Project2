@@ -84,6 +84,7 @@ void Screen_manager::print_share(){
         score_map['s'] = 0;
         score_map['d'] = 0;
         score_map['a'] = 0;
+        score_map['b'] = 0;
         initial_map = 1;
     }
 
@@ -253,6 +254,9 @@ void Screen_manager::print_share(){
                 if (vec_enemy_board[iter->y][iter->x].size()>0) {
                     for (int i=0; i<vec_enemy_board[iter->y][iter->x].size(); i++) { // enemy hp redusing
                         vec_enemy_board[iter->y][iter->x][i]->hp-=iter->level;
+                        if (iter->bullet_shape == '0') {
+                            vec_enemy_board[iter->y][iter->x][i]->hp = 0;
+                        }
                         if (vec_enemy_board[iter->y][iter->x][i]->hp <= 0) {
                             for (int j=0; j < vec_enemy.size(); j++) {
                                 if (vec_enemy[j]->create_frame_enemy == vec_enemy_board[iter->y][iter->x][i]->create_frame_enemy) {
@@ -431,6 +435,9 @@ void Screen_manager::print_share(){
                     if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size() > 0) {
                         for (int j=0; j < vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
                             vec_enemy[i]->hp -= vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x][j].level;
+                            if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x][j].bullet_shape == '0') {
+                                vec_enemy[i]->hp = 0;
+                            }
                         }
                         if (vec_enemy[i]->hp <= 0) {
                             for (int k=0; k<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); k++) {
@@ -509,6 +516,9 @@ void Screen_manager::print_share(){
                     if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size() > 0) {
                         for (int j=0; j < vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
                             vec_enemy[i]->hp -= vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x][j].level;
+                            if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x][j].bullet_shape == '0') {
+                                vec_enemy[i]->hp = 0;
+                            }
                         }
                         if (vec_enemy[i]->hp <= 0) {
                             for (int k=0; k<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); k++) {
@@ -592,6 +602,9 @@ void Screen_manager::print_share(){
                     if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size() > 0) {
                         for (int j=0; j < vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); j++) {
                             vec_enemy[i]->hp -= vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x][j].level;
+                            if (vec_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x][j].bullet_shape == '0') {
+                                vec_enemy[i]->hp = 0;
+                            }
                         }
                         if (vec_enemy[i]->hp <= 0) {
                             for (int k=0; k<vec_enemy_board[vec_enemy[i]->y][vec_enemy[i]->x].size(); k++) {
@@ -650,7 +663,7 @@ void Screen_manager::print_share(){
 
 
 
-    score = (score_map['n']*1) + (score_map['r']*2) + (score_map['s']*3) + (score_map['d']*4) + (score_map['a']*5);
+    score = (score_map['n']*1) + (score_map['r']*2) + (score_map['s']*3) + (score_map['d']*4) + (score_map['a']*5) + (score_map['b']*10);
     if ((my_plane.hp <= 0 || vec_enemy.size() <= 0) && curr_frame >= 3) {
         end = 1;
     }

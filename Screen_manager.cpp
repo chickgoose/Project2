@@ -79,68 +79,14 @@ void Screen_manager::print_share(){
             this->my_plane.bullet.push_back(bullet_right);
             vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x+1].push_back(bullet_right);
         }
-        if (my_plane.hp == 5) {
-            cursorYX(3, 58); printf("%c", '5');
-        }
-        else if (my_plane.hp == 4) {
-            cursorYX(3, 58); printf("%c", '4');
-        }
-        else if (my_plane.hp == 3) {
-            cursorYX(3, 58); printf("%c", '3');
-        }
-        else if (my_plane.hp == 2) {
-            cursorYX(3, 58); printf("%c", '2');
-        }
-        else if (my_plane.hp == 1) {
-            cursorYX(3, 58); printf("%c", '1');
-        }
-        else if (my_plane.hp == 0) {
-            cursorYX(3, 58); printf("%c", '0');
-        }
-        else if (my_plane.hp == 9) {
-            cursorYX(3, 58); printf("%c", '9');
-        }
-        else if (my_plane.hp == 8) {
-            cursorYX(3, 58); printf("%c", '8');
-        }
-        else if (my_plane.hp == 7) {
-            cursorYX(3, 58); printf("%c", '7');
-        }
-        else if (my_plane.hp == 6) {
-            cursorYX(3, 58); printf("%c", '6');
-        }
+        cursorYX(3, 58); printf("%d", my_plane.hp % 10);
+        cursorYX(3, 57); printf("%d", my_plane.hp / 10);
 
-        if (vec_enemy.size() == 9) {
-            cursorYX(1, 58); printf("%c", '9');
-            cursorYX(2, 58); printf("%c", ' ');
-        }
-        else if (vec_enemy.size() == 8) {
-            cursorYX(1, 58); printf("%c", '8');
-        }
-        else if (vec_enemy.size() == 7) {
-            cursorYX(1, 58); printf("%c", '7');
-        }
-        else if (vec_enemy.size() == 6) {
-            cursorYX(1, 58); printf("%c", '6');
-        }
-        else if (vec_enemy.size() == 5) {
-            cursorYX(1, 58); printf("%c", '5');
-        }
-        else if (vec_enemy.size() == 4) {
-            cursorYX(1, 58); printf("%c", '4');
-        }
-        else if (vec_enemy.size() == 3) {
-            cursorYX(1, 58); printf("%c", '3');
-        }
-        else if (vec_enemy.size() == 2) {
-            cursorYX(1, 58); printf("%c", '2');
-        }
-        else if (vec_enemy.size() == 1) {
-            cursorYX(1, 58); printf("%c", '1');
-        }
-        else if (vec_enemy.size() == 0) {
-            cursorYX(1, 58); printf("%c", '0');
-        }
+        cursorYX(1, 58); printf("%d", vec_enemy.size() % 10);
+        cursorYX(1, 57); printf("%d", vec_enemy.size() / 10);
+
+        //cursorYX(1, 57); printf("%d", (vec_enemy.size() / 10));
+
         /*if (vec_enemy_board[bullet.y][bullet.x].size()>0) {
         for (int i=0; i<vec_enemy_board[bullet.y][bullet.x].size(); i++) { // enemy hp redusing
             vec_enemy_board[bullet.y][bullet.x][i]->hp-=bullet.level;
@@ -201,6 +147,11 @@ void Screen_manager::print_share(){
                 {
                     Levelup_bullet* levelup_bullet = new Levelup_bullet(y_event[i], x_event[i], frame_event[i], type_event[i]);
                     vec_bullet_change.push_back(levelup_bullet);
+                }
+                else if (type_event[i] == 'H')
+                {
+                    Hp_plus* hp_plus = new Hp_plus(y_event[i], x_event[i], frame_event[i], type_event[i]);
+                    vec_bullet_change.push_back(hp_plus);
                 }
             }
         }
@@ -728,6 +679,9 @@ void Screen_manager::print(int ch){ //ascii
                 if (my_plane.bullet_level < 3) {
                     my_plane.bullet_level++;
                 }
+            }
+            else if (vec_bullet_change[i]->type == 'H') {
+                my_plane.hp+=5;
             }
             delete vec_bullet_change[i];
             vec_bullet_change.erase(vec_bullet_change.begin() + i);

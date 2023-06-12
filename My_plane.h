@@ -27,5 +27,6 @@ class My_plane{
         vector<Bullet> bullet;
         bool power_up = false;
         int bullet_level = 1;
+        bool charged = false;
 };
 #endif

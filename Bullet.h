@@ -41,4 +41,12 @@ class Bullet_right : public Bullet
         Bullet_right(int y_value, int x_value, int frame_value, int level_value) \
         : Bullet(y_value, x_value, frame_value, level_value) {direction = right;};
 };
+
+class Charged_bullet : public Bullet
+{
+    public : 
+        Charged_bullet(int y_value, int x_value, int frame_value, int level_value) \
+        : Bullet(y_value, x_value, frame_value, level_value) {};
+};
+
 #endif

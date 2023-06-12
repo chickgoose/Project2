@@ -138,6 +138,12 @@ void Screen_manager::print_share(){
                     vec_enemy.push_back(enemy_5a);
                     vec_enemy_board[enemy_5a->y][enemy_5a->x].push_back(enemy_5a);
                 }
+                else if (type_event[i] == 'b')
+                {
+                    Enemy_6b* enemy_6b = new Enemy_6b(y_event[i], x_event[i], frame_event[i], type_event[i]);
+                    vec_enemy.push_back(enemy_6b);
+                    vec_enemy_board[enemy_6b->y][enemy_6b->x].push_back(enemy_6b);
+                }
                 else if (type_event[i] == 'P')
                 {
                     Powerup_bullet* powerup_bullet = new Powerup_bullet(y_event[i], x_event[i], frame_event[i], type_event[i]);
@@ -231,7 +237,7 @@ void Screen_manager::print_share(){
         }
 
         for (auto iter = this->vec_enemy_bullet.begin(); iter<this->vec_enemy_bullet.end();) {
-            if ((iter->enemy_b_type == 's' && iter->y>=28) || (iter->enemy_b_type == 'd' && (iter->y>=28 || iter->x>=58))) {
+            if (((iter->enemy_b_type == 's' || iter->enemy_b_type == 'b') && iter->y>=28) || (iter->enemy_b_type == 'd' && (iter->y>=28 || iter->x>=58))) {
                 board[iter->y][iter->x]=' ';
                 this->cor_vec_enemy_bullet_board = false;
                 for (int i=0; i<vec_enemy_bullet_board[iter->y][iter->x].size(); i++) {
@@ -268,7 +274,7 @@ void Screen_manager::print_share(){
                         vec_enemy_bullet_board[iter->y][iter->x].erase(vec_enemy_bullet_board[iter->y][iter->x].begin() + this->erase_idx_vec_enemy_bullet_board);
                     }
                 }
-                if (iter->enemy_b_type == 's') {
+                if (iter->enemy_b_type == 's' || iter->enemy_b_type == 'b') {
                     iter->y += shot_frame;
                 }
                 else if (iter->enemy_b_type == 'd') {
@@ -568,11 +574,22 @@ void Screen_manager::print_share(){
                 }
             }
         }
+        else if (vec_enemy[i]->type == 'b') {
+            while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->cell_speed - vec_enemy[i]->check_frame_enemy > 0) {
+                Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, \
+                  vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
+                this->vec_enemy_bullet.push_back(enemy_bullet);
+                vec_enemy_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(enemy_bullet);
+                vec_enemy[i]->check_frame_enemy++;
+            }
+        }
         else if (vec_enemy[i]->type == 'a') {
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->buff_speed - vec_enemy[i]->check_frame_enemy > 0) {
                 for (int j=0; j<vec_enemy.size(); j++) {
                     if ((vec_enemy[j]->create_frame_enemy!=vec_enemy[i]->create_frame_enemy) && (vec_enemy[i]->in_buff_area(vec_enemy[j]))) {
-                        vec_enemy[j]->bullet_damage += 1;
+                        if (vec_enemy[j]->type != 'b') {
+                            vec_enemy[j]->bullet_damage += 1;
+                        }
                     }
                 }
                 vec_enemy[i]->check_frame_enemy++;

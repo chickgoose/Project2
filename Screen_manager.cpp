@@ -45,6 +45,21 @@ void Screen_manager::print_share(){
     board[1][55] = 'y';
     board[1][56] = ':';
 
+    kill = score_map['n'] + score_map['r'] + score_map['s'] + score_map['d'] + score_map['a'];
+    if (kill >= 7) {
+        my_plane.charged = true;
+    }
+
+    if (my_plane.charged == true) {
+        board[2][52] = 'C';
+        board[2][53] = 'h';
+        board[2][54] = 'a';
+        board[2][55] = 'r';
+        board[2][56] = 'g';
+        board[2][57] = 'e';
+        board[2][58] = 'd';
+    }
+
     board[3][54] = 'h';
     board[3][55] = 'p';
     board[3][56] = ':';
@@ -79,6 +94,7 @@ void Screen_manager::print_share(){
             this->my_plane.bullet.push_back(bullet_right);
             vec_bullet_board[my_plane.y-1+shot_frame][my_plane.x+1].push_back(bullet_right);
         }
+        
         cursorYX(3, 58); printf("%d", my_plane.hp % 10);
         cursorYX(3, 57); printf("%d", my_plane.hp / 10);
 
@@ -242,7 +258,8 @@ void Screen_manager::print_share(){
                 this->cor_vec_enemy_bullet_board = false;
                 for (int i=0; i<vec_enemy_bullet_board[iter->y][iter->x].size(); i++) {
                     if ((vec_enemy_bullet_board[iter->y][iter->x][i].create_frame_enemy_bullet == iter->create_frame_enemy_bullet) \
-                    && (vec_enemy_bullet_board[iter->y][iter->x][i].frame_enemy == iter->frame_enemy)) {
+                    && (vec_enemy_bullet_board[iter->y][iter->x][i].frame_enemy == iter->frame_enemy) \
+                    && (vec_enemy_bullet_board[iter->y][iter->x][i].direction_e == iter->direction_e)) {
                         this->erase_idx_vec_enemy_bullet_board = i;
                         //cursorYX(1, 2); printf("%c", '2');
                         this->cor_vec_enemy_bullet_board = true;
@@ -263,7 +280,8 @@ void Screen_manager::print_share(){
                     this->cor_vec_enemy_bullet_board = false;
                     for (int i=0; i<vec_enemy_bullet_board[iter->y][iter->x].size(); i++) {
                         if ((vec_enemy_bullet_board[iter->y][iter->x][i].create_frame_enemy_bullet == iter->create_frame_enemy_bullet) \
-                        && (vec_enemy_bullet_board[iter->y][iter->x][i].frame_enemy == iter->frame_enemy)) {
+                        && (vec_enemy_bullet_board[iter->y][iter->x][i].frame_enemy == iter->frame_enemy) \
+                        && (vec_enemy_bullet_board[iter->y][iter->x][i].direction_e == iter->direction_e)) {
                             this->erase_idx_vec_enemy_bullet_board = i;
                             //cursorYX(1, 2); printf("%c", '2');
                             this->cor_vec_enemy_bullet_board = true;
@@ -578,8 +596,16 @@ void Screen_manager::print_share(){
             while ((curr_frame-vec_enemy[i]->create_frame_enemy)/vec_enemy[i]->cell_speed - vec_enemy[i]->check_frame_enemy > 0) {
                 Enemy_bullet enemy_bullet = Enemy_bullet(vec_enemy[i]->y, vec_enemy[i]->x, vec_enemy[i]->check_frame_enemy, \
                   vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
+                Enemy_bullet_left enemy_bullet_left = Enemy_bullet_left(vec_enemy[i]->y, (vec_enemy[i]->x-1), vec_enemy[i]->check_frame_enemy, \
+                  vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
+                Enemy_bullet_right enemy_bullet_right = Enemy_bullet_right(vec_enemy[i]->y, (vec_enemy[i]->x+1), vec_enemy[i]->check_frame_enemy, \
+                  vec_enemy[i]->create_frame_enemy, vec_enemy[i]->bullet_damage, vec_enemy[i]->type);
                 this->vec_enemy_bullet.push_back(enemy_bullet);
+                this->vec_enemy_bullet.push_back(enemy_bullet_left);
+                this->vec_enemy_bullet.push_back(enemy_bullet_right);
                 vec_enemy_bullet_board[vec_enemy[i]->y][vec_enemy[i]->x].push_back(enemy_bullet);
+                vec_enemy_bullet_board[vec_enemy[i]->y][(vec_enemy[i]->x-1)].push_back(enemy_bullet_left);
+                vec_enemy_bullet_board[vec_enemy[i]->y][(vec_enemy[i]->x+1)].push_back(enemy_bullet_right);
                 vec_enemy[i]->check_frame_enemy++;
             }
         }

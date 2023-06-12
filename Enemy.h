@@ -101,7 +101,7 @@ class Enemy_6b: public Enemy_1n  // BOSS
     {enemy_type = b;
     hp = 300;
     cell_speed = 3;
-    bullet_damage = 2;};
+    };
 };
 
 class Enemy_bullet
